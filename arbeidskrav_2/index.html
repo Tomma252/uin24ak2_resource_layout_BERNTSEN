@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbeidskrav 2 - TB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="center-container">
+        <section id="tabs"></section>
+        <section id="resources-container"></section>
+    </section>
+
+    <script src="ressurser.js"></script>
+
+    <script>
+        const tabsContainer = document.getElementById("tabs");
+        const resourcesContainer = document.getElementById("resources-container");
+
+        for (let i = 0; i < resources.length; i++) {
+            const category = resources[i].category;
+
+            const tab = document.createElement("span");
+            tab.classList.add("tab");
+            tab.textContent = category;
+
+            tab.addEventListener("click", function () {
+                const allTabs = document.querySelectorAll(".tab");
+                allTabs.forEach((tab) => tab.classList.remove("active"));
+
+                tab.classList.add("active");
+
+                displayContent(category);
+                });
+
+                tabsContainer.appendChild(tab);
+                }
+
+        displayContent(resources[0].category);
+
+        function displayContent(category) {
+            resourcesContainer.innerHTML = "";
+
+            const selectedResource = resources.find((resource) => resource.category === category);
+
+            const contentBox = document.createElement("span");
+            contentBox.classList.add("content-box");
+
+            const textTitle = document.createElement("h1");
+            textTitle.textContent = selectedResource.category;
+            contentBox.appendChild(textTitle);
+
+            const textParagraph = document.createElement("p");
+            textParagraph.textContent = selectedResource.text;
+            contentBox.appendChild(textParagraph);
+
+            const sourcesList = document.createElement("ul");
+
+        for (let j = 0; j < selectedResource.sources.length; j++) {
+            const source = selectedResource.sources[j];
+            const listItem = document.createElement("li");
+
+            const sourceLink = document.createElement("a");
+            sourceLink.href = source.url;
+            sourceLink.textContent = source.title;
+            listItem.appendChild(sourceLink);
+
+            sourcesList.appendChild(listItem);
+            }
+
+            contentBox.appendChild(sourcesList);
+
+            resourcesContainer.appendChild(contentBox);
+            }
+
+    </script>
+</body>
+</html>
